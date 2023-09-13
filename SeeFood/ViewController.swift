@@ -25,13 +25,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePicker.allowsEditing = false
         
     }
-    
+    //method is triggered after an image is picked
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let userPickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             ImageView.image = userPickedImage
             guard let ciimage = CIImage(image: userPickedImage) else {
                 fatalError("Could not convert to CIImage")
             }
+            // method to run image classification
             detect(image: ciimage)
         }
         imagePicker.dismiss(animated: true, completion: nil)
@@ -48,10 +49,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
             
             if let firstResult = results.first {
-                if firstResult.identifier.contains("hotdog") {
-                    self.navigationItem.title = "It's A Hotdog!"
+                if firstResult.identifier.contains("cat") {
+                    self.navigationItem.title = "It's A Cat!"
                 } else {
-                    self.navigationItem.title = "It's Not A Hotdog!"
+                    self.navigationItem.title = "It's Not A Cat!"
                 }
             }
             
